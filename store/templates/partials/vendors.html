@@ -1,0 +1,21 @@
+{% block vendors %}
+<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-heading pr-3"> Vendors </span></h2>
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="owl-carousel vendor-carousel">
+        {% for i in vendors %}
+          <div  class="ml-1 mr-1 text-center bg-vendor">
+                <div class="overflow-hidden img-thumbnail" style="width: 100px; height: 100px;">
+                    <img src="{{ i.vendor_image.url }}" alt="vendor_image" class="img-thumbnail">
+                </div>
+             
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate text-dark" href="{% url 'vendor_detail' i.vendor_name %}">  {{ i.vendor_name }} </a>
+                </div>
+            </div>
+        {% endfor %}       
+        </div>
+    </div>
+</div>         
+
+{% endblock %}

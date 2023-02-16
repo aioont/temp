@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="row px-xl-5 text-dark flex">
+    {% for k in search_provider %}
+       <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+           <div class="product-item mb-4 bg-dark">
+
+               {% if k.sp_image %}
+               <div class="product-img position-relative overflow-hidden">
+                    <img class = "img-fluid" src="{{ k.sp_image.url }}" alt="Image of {{ k.service_provider_name }}">                  
+               </div> 
+               {% else %}
+               <div class="product-img position-relative overflow-hidden align-items-center">
+                    <img class = "img-fluid" src="{% static 'img/noimg.png' %}" alt="Image of {{ j.title }}">                  
+                </div> 
+               {% endif %}
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate" href=""> Services Provider : {{ k.service_provider_name }} </a>
+                          <br> 
+                            <h6>Stars : {{k.star}} </h6>
+                </div>
+            </div>
+       </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,116 @@
+{% load static %}
+<html>
+<head>
+    <title>Digital Services </title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid bg-services-navbar mb-30">  <!--prevoius bg-dark-->
+        <div class="row">
+            <div class="col-lg-3 d-none d-lg-block bg-light">
+                <a class="btn d-flex align-items-center justify-content-between mt-2" data-toggle="collapse" href="#navbar-vertical" style="height: 40px; padding: 0 30px;">
+                    <h6 class="m-0 text-dark"><i class="fa fa-bars mr-2"></i> Services </h6>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                
+                    <div class="navbar-nav">
+                        <div class="nav-item dropdown dropright">
+                            {% for i in popular_services %}
+                                <a href="{% url 'services' %}" class="nav-item nav-link" > {{ i.title }} </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-4 col-6 text-left mt-3 w-75">
+                <form method="get" action="{% url 'search_services' %}">
+                    <div class="search-container">
+                        <input type="text" class="form-control" placeholder="Search a services or service providers" name="service_query">
+                        <button class="search-icon">
+                        <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-3">
+                <a href="{% url 'frontPage' %}" class="nav-top-bar"> Goto Home </a>
+                <a href="#" class="nav-top-bar"> View all services </a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="position-relative mx-xl-5 mb-4"><span class="bg-heading-violet pr-3"> Popular Service Providers </span></h2>
+    <div class="row px-xl-5 text-dark">
+        {% for i in popular_service_providers %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-card-gray mb-4">
+                {% if i.sp_name %}
+                    {% if i.sp_image %}
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class = "img-fluid" src="i.sp_image.url" alt="Image of  i.sp_name">  
+                        </div>
+                    {% else %}
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{% static 'img/no-img.png' %}" alt="No image">   
+                        </div>
+                    {% endif %}   
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate" href="">   {{ i.sp_name }} </a>
+                </div>
+                {% else %}
+                <hr>
+                    <p class="text-dark h3"> Service provider do not exist. </p>
+                {% endif %}
+                </div>             
+            </div>  
+            {% endfor %}
+    </div>
+
+
+
+
+
+<h2 class="position-relative mx-xl-5 mb-4"><span class="bg-heading-violet pr-3"> Popular Services </span></h2>
+<div class="row px-xl-5 text-dark">
+    {% for i in popular_services %} 
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-card-gray mb-4">
+
+                {% if i.image %}
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="i.image.url" alt="Image of i.title ">   
+                    </div>
+                {% else %}
+                <div class="product-img position-relative overflow-hidden">
+                    <img class="img-fluid" src="{% static 'img/logo.png' %}" alt="Image of i.title ">   
+                </div>
+                {% endif %}  
+
+
+                <div class="text-center py-4">
+                    <a class="h6 text-decoration-none text-truncate" href=""> {{ i.title }} </a>
+                </div>
+            </div>             
+        </div>  
+        {% endfor %}
+</div>
+
+
+
+
+</body>
+
+{% block scripts %}
+{% endblock %}
+
+</html>
+
+
+
+

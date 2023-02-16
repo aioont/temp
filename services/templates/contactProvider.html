@@ -1,0 +1,18 @@
+{% load static %}
+
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+
+
+<h1>Send message to service provider {{ serpro.service_provider_name }} </h1>
+  <p>Please fill out the form below to contact the service provider for {{ service_title }}.</p>
+<div class="forms-design">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="zblock">
+      {{ form.as_p }}
+    </div>
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+
