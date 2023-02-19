@@ -27,7 +27,7 @@
 
                            
 
-							<form method="POST" action="#" class="needs-validation" novalidate="" autocomplete="off"> <!-- $$$$$   form here    $$$$$-->
+							<form method="POST" class="needs-validation" novalidate="" autocomplete="off"> <!-- $$$$$   form here    $$$$$-->
 								{% csrf_token %}
 
 								<div class="mb-3">
@@ -64,26 +64,6 @@
 								    <div class="invalid-feedback">
 								    	Password is required
 							    	</div>
-								</div>
-
-								<div class="mb-3">
-									
-									  <label class="mb-2 text-muted" {% if radio.value == form.radio_button.value %} checked {% endif %}> Become a vendor
-										{{ radio.choice_label }}   {{form.is_vendor}} 
-										{% if radio.is_vendor == 'Yes' %} 
-										<div class="mb-3">
-											<label class="mb-2 text-muted" for="password1">Vendor name</label>
-											{{form.vendor_name}}
-											<label class="mb-2 text-muted" for="password2">Adderss</label>
-											{{form.vendor_address}}
-											<div class="invalid-feedback">
-												Password is required
-											</div>
-										</div>
-										{% endif %}
-									  </label>
-								
-									
 								</div>
 								{{from.errors}}
 

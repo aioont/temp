@@ -1,6 +1,8 @@
 #from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+# from userprofile.models import BecomeVendor
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -60,16 +62,14 @@ class Vendor(models.Model):
         (DELETEED,  'deleted')
     )
     user = models.ForeignKey(User, related_name='vendors', on_delete=models.CASCADE)
-    vendor_image = models.ImageField(upload_to='uploads/vendor_images/', blank=True, null=True)
+    # beome_vendor = models.ForeignKey(BecomeVendor, related_name='beome_vendor', on_delete=models.CASCADE)
     no_of_product = models.IntegerField()
     income = models.IntegerField()
     joined_in = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ACTIVE)
-    vendor_name = models.CharField(max_length=30, null=True)
-    vendor_address = models.CharField(max_length=30, null=True)
-
+    
     def __str__(self):
-        return self.vendor_name 
+        return self.income
 
 
 class Order(models.Model):

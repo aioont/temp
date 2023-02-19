@@ -5,14 +5,17 @@ from django.forms import ModelForm
 
 from .models import CustomUser
 from django.db import models
-from store.models import Vendor
+from .models import BecomeVendor
+
+from django.forms.widgets import FileInput
+
 
 
 class UserAdminCreationForm(UserCreationForm):
-    CHOICES = (
-        ('yes', 'Yes'),
-        ('no', 'No'),
-    )
+    # CHOICES = (
+    #     ('yes', 'Yes'),
+    #     ('no', 'No'),
+    # )
 
     """
     A Custom form for creating new users.
@@ -29,7 +32,7 @@ class UserAdminCreationForm(UserCreationForm):
 
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}))
 
-    is_vendor = forms.ChoiceField(widget=forms.RadioSelect(attrs={'name': 'is_vendor'}),choices=CHOICES, initial='no')
+    # is_vendor = forms.ChoiceField(widget=forms.RadioSelect(attrs={'name': 'is_vendor'}),choices=CHOICES, initial='no')
     
     #vendor_name = forms.ModelChoiceField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vendor name'}),  queryset = forms.CharField(max_length=255, initial=Vendor.objects.all()[0].vendor_name))
 
@@ -41,21 +44,28 @@ class UserAdminCreationForm(UserCreationForm):
 
     class Meta:    
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'mobile', 'email', 'password1', 'password2', 'is_vendor']
+        fields = ['first_name', 'last_name', 'mobile', 'email', 'password1', 'password2']
 
 
 
 class BecomeVendorForm(forms.ModelForm):
-    CHOICES = (
-        ('yes', 'Yes'),
-        ('no', 'No'),
-    )
-    vednor_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vendor or business Name', 'label' : 'vendor_name'}))
-    vednor_address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vendor address', 'label' : 'vendor_address'}))
-    vendor_image = forms.ImageField(widget= forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'Upload image here', 'label' : 'vendor_image'}))
+    # CHOICES = (
+    #     ('yes', 'Yes'),
+    #     ('no', 'No'),
+    # )
+    # vendor_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vendor or business Name'}))
+    # vendor_email = forms.EmailInput(widget=forms.FileInput(attrs={'placeholder': 'Vendor email'})),
+    # vendor_address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vendor address'}))
+    # vendor_image = forms.ImageField(widget= forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'Upload image here'}))
 
     class Meta:
-        model = Vendor
-        fields = ('vendor_name', 'vendor_address', 'vendor_image')
-    model = CustomUser
-    is_vendor = forms.ChoiceField(widget=forms.RadioSelect(attrs={'name': 'is_vendor'}),choices=CHOICES, initial='yes')
+        model = BecomeVendor
+        fields = ['vendor_name', 'vendor_email', 'vendor_address', 'vendor_image']
+        widgets = {
+            'vendor_name': forms.TextInput(attrs={'placeholder': 'Vendor or business Name'}),
+            'vendor_email': forms.EmailInput(attrs={'placeholder': 'Vendor email'}),
+            'vendor_address': forms.TextInput(attrs={'placeholder': 'Vendor address'}),
+            'vendor_image': forms.FileInput(attrs={'placeholder': 'Upload image here'}),
+        }
+
+    # is_vendor = forms.ChoiceField(widget=forms.RadioSelect(attrs={'name': 'is_vendor'}),choices=CHOICES, initial='yes')

@@ -5,9 +5,9 @@ mobile:     1234567890
 password:   admin123
 =========================
 
-cd ../env/Scripts
 cmd
 
+cd ../env/Scripts
 activate
 cd ../../dpe3
 python manage.py runserver

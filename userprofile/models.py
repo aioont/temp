@@ -1,6 +1,7 @@
 from random import choices
 from django.db import models
-from store.models import Vendor
+# from store.models import Vendor
+# from .models import BecomeVendor
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Create your models here.
@@ -56,3 +57,24 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.first_name
+
+class BecomeVendor(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=1)
+    vendor_name = models.CharField(max_length=255)
+    vendor_email = models.EmailField(max_length=100, unique=True)
+    vendor_address = models.CharField(max_length=255)
+    vendor_image = models.ImageField(upload_to='uploads/vendor_images/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.user:
+            raise ValueError('A CustomUser instance is required for saving a BecomeVendor instance')
+        super(BecomeVendor, self).save(*args, **kwargs)
+        self.user.is_vendor = True
+        self.user.save()
+
+    class Meta:
+        verbose_name_plural = "Become Vendors"
+
+    def __str__(self):
+        return self.vendor_name
+

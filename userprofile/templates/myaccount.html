@@ -7,7 +7,14 @@
     <hr><h3 class="text-lg mb-4"> Hello {% firstof user.get_full_name user.username %}, </h3> <br><br><br>
     <hr>
   <!-- <a href="" class="text-lg mb-4"> View {% firstof user.get_full_name user.username %} orders </a> #{ % url 'my_store_order_detail' pk=order_item.order.id % }" -->
-    <a href="{% url 'become_vendor' %}" class="btn btn-success ml-3"> Become a vendor </a>
-    <a href="{% url 'logout' %}" class="btn btn-danger ml-5"> Log out </a>
 
+<center>
+    {% if request.user.is_vendor %}
+        <a class="btn btn-success ml-3 mr-3 mt-3 mb-3" href="{% url 'my_store' %}">My store</a>
+    {% else %}
+        <a class="btn btn-success ml-3 mr-3 mt-3 mb-3" href="{% url 'become_vendor' %}"> Become a vendor </a>
+    {% endif %} 
+
+    <a href="{% url 'logout' %}" class="btn btn-danger ml-5"> Log out </a>
+</center>
 {% endblock %}

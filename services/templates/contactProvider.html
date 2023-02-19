@@ -10,6 +10,7 @@
     {% csrf_token %}
     <div class="zblock">
       {{ form.as_p }}
+      <input type="hidden" name="subject" value="Query about service {{ service.title }}">
     </div>
     <button type="submit">Send Message</button>
   </form>

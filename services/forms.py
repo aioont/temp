@@ -1,14 +1,25 @@
 from django import forms
 from .models import ProviderMessage,AdminMessage
 
+
+
 class ProviderMessageForm(forms.ModelForm):
     class Meta:
         model = ProviderMessage
-        fields = ['name', 'subject', 'email', 'message']
+        fields = ['name', 'email', 'message']
         widgets = {
-        'name': forms.TextInput(attrs={'placeholder': 'Full name'}),
-        'email': forms.EmailInput(attrs={'placeholder': 'Email address'}),
-        'message': forms.Textarea(attrs={'placeholder': 'Your query about service ...'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Full name'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email address'}),
+            'message': forms.Textarea(attrs={'placeholder': 'Your query about service ...'}),
+        }
+
+    def clean_subject(self):
+        return "Query about service %s" % self.cleaned_data['subject']
+    labels = {
+            'subject': '',
+        }
+    widgets = {
+            'subject': forms.HiddenInput(),
         }
 
 

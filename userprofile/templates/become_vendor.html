@@ -1,10 +1,20 @@
 {% load static %}
 
 <head>
-		<!-- Customized Bootstrap Stylesheet -->
-		<link href="{% static 'css/style.css' %}" rel="stylesheet">
-
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<style>
+		input[type="email"] {
+			width: 100%;
+			padding: 0.5rem 1rem;
+			font-size: 1rem;
+			color: #333;
+			border: none;
+			background-color: #f2f2f2;
+		}
+	</style>
 </head>
+
 <body>
 	<section class="h-100">
 		<div class="container h-100">
@@ -16,23 +26,12 @@
 
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4 text-dark"> Become a Vendor and Start your business today :) </h1>
-							<form method="POST" action="#" class="needs-validation" novalidate="" autocomplete="off"> <!-- $$$$$   form here    $$$$$-->
+							<h1 class="fs-4 card-title fw-bold mb-4 text-dark">Become a Vendor and Start your business today :)</h1>
+							<form method="POST" enctype="multipart/form-data" class="needs-validation text-dark" novalidate="" autocomplete="off">
 								{% csrf_token %}
+								<input type="text" name="user" value="{{ request.user.id }}">
 
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="vendor_name">Enter your business name</label>
-									{{form.vendor_name}}		
-								</div>
-                                <div class="mb-3">
-									<label class="mb-2 text-muted" for="vendor_address">Enter you business address</label>
-                                    {{form.vendor_address}}
-                                </div>
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="vendor_image">Upload your business image here</label>
-									{{form.vendor_image}}
-								</div>
-								
+								{{ form.as_p }}
 
 								<div class="align-items-center d-flex">
 									<input type="submit" value="Register" class="btn btn-primary ms-auto">
@@ -40,16 +39,8 @@
 							</form>
 						</div>
 					</div>
-			    </div>
-		    </div>
-        </div>
+				</div>
+			</div>
+		</div>
 	</section>
 </body>
-
-
-
-
-
-
-
-

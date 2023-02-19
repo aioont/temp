@@ -57,7 +57,12 @@
                     <a class="nav-top-bar" href="{% url 'about' %}">About</a>
                     <a class="nav-top-bar" href="{% url 'contact' %}">Contact</a>
                     <a class="nav-top-bar" href="{% url 'help' %}">Help</a>
-                    <a class="nav-top-bar" href="{% url 'login' %}">Login</a>   
+                    <a class="nav-top-bar" href="{% url 'services' %}">Services</a>
+                    {% if not request.user.is_authenticated %}
+                        <a class="nav-top-bar" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+            
+
                 </div>
             </div>
             
@@ -77,17 +82,15 @@
                     <h6 class="m-0 text-dark"><i class="fa fa-bars mr-2"></i>Categories</h6>
                     <i class="fa fa-angle-down"></i>
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                   
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-dark align-items-start p-0 bg-dark" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999; overflow-y: auto; max-height: 500px;">
                     <div class="navbar-nav">
                         <div class="nav-item dropdown dropright">
-                        {% menu %}
-
-                        
+                        {% menu %}   
                         </div>
                     </div>
                 </nav>
             </div>
+            
             <!--gray navbar start home shop pages-->
             <div class="col-lg-9-no-margin-right">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
@@ -118,14 +121,19 @@
                             <div class="dropdown-menu bg-light rounded-lg border-0">
                                 {% if request.user.is_authenticated %}
                                     <a class="dropdown-item" href="{% url 'myaccount' %}">Profile</a > <!--Set url 'myaccount'-->
-                                    {% if request.user.is_authenticated.is_vendor %}
+
+                                    {% if request.user.is_vendor %}
                                         <a class="dropdown-item" href="{% url 'my_store' %}">My store</a>
                                     {% else %}
                                         <a class="dropdown-item" href="{% url 'become_vendor' %}"> Become a vendor </a>
                                     {% endif %} 
-                                    <a class="dropdown-item" href="{% url 'logout' %}">   Logout
+                                    
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout
                                         <img src="{% static 'img/logout.png' %}" alt="Logout" height="20px" width="20px">
                                     </a>
+                                    {% else %}
+                                <a class="dropdown-item" href="{% url 'login' %}">Log in</a>
+                                <a class="dropdown-item" href="{% url 'signup' %}">Register</a>    
                                 {% endif %} 
                             </div>
                         </div>     
