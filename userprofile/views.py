@@ -15,6 +15,76 @@ from store.models import Product, Category, Order, OrderItem
 
 from django.utils.text import slugify
 
+
+
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.category = Category.objects.get(title=request.POST.get('title'))
+            product.slug = slugify(product.title)
+            product.save()
+            
+            messages.success(request, f'{product.title} added successfully.')
+            return redirect('my_store')
+        else:
+            # messages.error(request, f'{product.title} added failed.')
+            pass
+    else:
+        form = ProductForm()
+    
+    return render(request, 'add_product.html', {'form': form})
+
+
+# @login_required
+# def add_product(request):
+#     category = Category.objects.get(title=category.title)
+#     if request.method == 'POST':
+#         form = ProductForm(request.POST, request.FILES)
+
+#         if form.is_valid():
+#             product = form.save(commit=False)
+#             product.user = request.user
+#             product.slug = slugify(product.title)
+#             product.save()
+            
+#             messages.success(request, f'{product.title} added successfully.')
+#             return redirect('my_store')
+#         else:
+#             messages.error(request, f'{product.title} added failed.')
+#     else:
+#         form = ProductForm()
+    
+#     return render(request, 'add_product.html', {'form': form})
+
+
+
+
+
+#@login_required
+def edit_product(request, pk):
+    product = Product.objects.filter(user=request.user).get(pk=pk)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Changes in product {product.title} was saved !')
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'edit_product.html', {
+        'product':product,  
+        'form': form 
+    })
+
+
+
+
+
 # def become_vendor(request):
 #     if request.method == 'POST':
 #         form = BecomeVendorForm(request.POST, request.FILES)
@@ -68,77 +138,6 @@ def vendor_detail(request, vendor_name):
 
 
 
-def add_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            title = request.POST.get('title')
-            category_title = request.POST.get('category')
-            category = Category.objects.get(title=category_title)
-            
-            product = form.save(commit=False)
-            product.user = request.user
-            product.category = category
-            product.slug = slugify(title)
-            product.save()
-            
-            messages.success(request, f'{product.title} added Successfully ...')
-            return redirect('my_store')
-    else:
-        form = ProductForm()
-        categories = Category.objects.values_list('title', flat=True)
-        form.fields['category'].widget = forms.Select(choices=[(category, category) for category in categories])
-    
-    return render(request, 'add_product.html', {
-        'form' : form,
-    })
-
-
-
-
-
-
-
-
-
-
-#@login_required
-# def add_product(request):
-#     category = Category.
-#     if request.method == 'POST':
-#         form = ProductForm(request.POST, request.FILES)
-
-#         if form.is_valid():
-#             product = form.save(commit=False)
-#             product.user = request.user
-#             product.slug = slugify(product.title)
-#             product.save()
-            
-#             messages.success(request, f'{product.title} added successfully.')
-#             return redirect('my_store')
-#     else:
-#         form = ProductForm()
-    
-#     return render(request, 'add_product.html', {'form': form})
-
-
-#@login_required
-def edit_product(request, pk):
-    product = Product.objects.filter(user=request.user).get(pk=pk)
-
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Changes in product {product.title} was saved !')
-    else:
-        form = ProductForm(instance=product)
-
-    return render(request, 'edit_product.html', {
-        'product':product,  
-        'form': form 
-    })
 
 #@login_required
 def delete_product(request, pk):

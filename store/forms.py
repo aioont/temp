@@ -3,6 +3,28 @@
 from django import forms
 
 from .models import Product, Order
+from core.models import Contact
+
+
+class MessageSellerForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['full_name', 'mail', 'msg_content']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'placeholder': 'Full name'}),
+            'mail': forms.EmailInput(attrs={'placeholder': 'Email address'}),
+            'msg_content': forms.Textarea(attrs={'placeholder': 'Your query about product ...'}),
+        }
+
+    def clean_subject(self):
+        return "Query about product %s" % self.cleaned_data['msg_subject']
+    labels = {
+            'msg_subject': '',
+        }
+    widgets = {
+            'msg_subject': forms.HiddenInput(),
+        }
+
 
 class OrderForm(forms.ModelForm):
     #first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))

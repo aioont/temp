@@ -3,8 +3,8 @@
 <link href="{% static 'css/forms.css' %}" rel="stylesheet">
 
 
-<h1>Send message to service provider {{ serpro.service_provider_name }} </h1>
-  <p>Please fill out the form below to contact the service provider for {{ service_title }}.</p>
+<h1>Send message to service provider {{ service.service_provider.sp_name }} </h1>
+  <p>Please fill out the form below to contact the service provider to know about {{ service.title }}.</p>
 <div class="forms-design">
   <form method="POST">
     {% csrf_token %}

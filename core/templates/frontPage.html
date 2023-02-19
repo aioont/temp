@@ -120,10 +120,15 @@
        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
            <div class="product-item bgof mb-4">
 
-              
+                {% if i.image %}
                <div class="product-img position-relative overflow-hidden">
                     <img class = "img-fluid" src="{{ i.image.url }}" alt="Image of {{ i.title }}">
                 </div>
+                {% else %}
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid" src="{% static 'img/no-img.png' %}" alt="No image">   
+                    </div>
+                {% endif %}
               
                  
                 <div class="text-center py-4">
@@ -159,7 +164,11 @@
                <div class="product-img position-relative overflow-hidden">
                  <img class = "img-fluid" src="{{ i.category_image.url }}" alt="Image of {{ i.title }}">  
                </div>
-               {% endif %}  
+               {% else %}
+                <div class="product-img position-relative overflow-hidden">
+                    <img class="img-fluid" src="{% static 'img/no-img.png' %}" alt="No image">   
+                </div>
+                {% endif %}             
 
                 <div class="text-center py-4">
                     <a class="h6 text-decoration-none text-truncate" href="{% url 'category_detail' i.slug %}">  {{ i.title }} </a>

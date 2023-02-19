@@ -73,7 +73,7 @@ class BecomeVendor(models.Model):
         self.user.save()
 
     class Meta:
-        verbose_name_plural = "Become Vendors"
+        verbose_name_plural = "Become a service provider"
 
     def __str__(self):
         return self.vendor_name

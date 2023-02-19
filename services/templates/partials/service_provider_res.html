@@ -1,25 +1,29 @@
 {% load static %}
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
 
 <div class="row px-xl-5 text-dark flex">
-    {% for k in search_provider %}
+    {% for k in services %}
        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-           <div class="product-item mb-4 bg-dark">
-
-               {% if k.sp_image %}
-               <div class="product-img position-relative overflow-hidden">
-                    <img class = "img-fluid" src="{{ k.sp_image.url }}" alt="Image of {{ k.service_provider_name }}">                  
-               </div> 
-               {% else %}
-               <div class="product-img position-relative overflow-hidden align-items-center">
-                    <img class = "img-fluid" src="{% static 'img/noimg.png' %}" alt="Image of {{ j.title }}">                  
+           <div class="product-item bgof mb-4">
+                {% if k.image %}
+                <div class="product-img position-relative overflow-hidden">
+                    <img class = "img-fluid" src="{{ k.image.url }}" alt="Image of {{ k.title}}">                  
                 </div> 
-               {% endif %}
+                {% else %}
+                <div class="product-img position-relative overflow-hidden align-items-center">
+                    <img class = "img-fluid" src="{% static 'img/no-img.png' %}" alt="Image of {{ k.title }}">                  
+                </div> 
+                {% endif %}  
+                
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href=""> Services Provider : {{ k.service_provider_name }} </a>
-                          <br> 
-                            <h6>Stars : {{k.star}} </h6>
+                    <a class="h5 text-decoration-none text-truncate" href="{% url 'services' %}"> {{ k.title }} </a>
+                        <h5 class="mt-1"> Service cost : $ {{ k.price }} <small> cost may vary</small></h5>
+                        <h5> Stars : {{ k.stars }} </h5>
                 </div>
             </div>
-       </div>
+        </div>
     {% endfor %}
 </div>
+

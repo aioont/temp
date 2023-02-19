@@ -69,7 +69,7 @@ class Vendor(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ACTIVE)
     
     def __str__(self):
-        return self.income
+        return self.user.first_name
 
 
 class Order(models.Model):

@@ -7,13 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 
 # Create your views here.
 from .cart import Cart
-from .forms import OrderForm
+from .forms import OrderForm, MessageSellerForm
 from .models import Product, Category, Order, OrderItem, Vendor
 from core.forms import ContactForm
-
 
 def add_to_cart(request, product_id):
     cart = Cart(request)
@@ -137,15 +137,21 @@ def product_detail(request, category_slug, slug):
     #category = get_object_or_404(Category, slug=slug)
     productss = Product.objects.all()
     product = get_object_or_404(Product, slug=slug, status=Product.ACTIVE)
-    simliar = Product.objects.filter(status=Product.ACTIVE)[0:6]
-
-    form = ContactForm()
+    simliar = Product.objects.filter(status=Product.ACTIVE)[0:4]
+    
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = MessageSellerForm(request.POST)
         if form.is_valid():
-            form.msg_content.append(productss.title)
+            # modify subject field by pass the service instance to the form using the instance parameter
+            form.instance.msg_subject = "Query about service %s" % product.title
             form.save()
-            return redirect('frontPage')
+            messages.success(request, "Success")
+            form = MessageSellerForm()
+        else:
+            messages.error(request, "Failed")
+    else:
+        form = MessageSellerForm()
+    
 
     return render(request, 'product_detail.html', {
         #'category': category,

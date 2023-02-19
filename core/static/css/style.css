@@ -290,6 +290,13 @@ input[type="checkbox"] {
 }
 
 textarea {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: #333;
+  border: none;
+  background-color: #f2f2f2;
+  
   overflow: auto;
   resize: vertical;
 }
@@ -364,7 +371,7 @@ h1, h2, h3, h4, h5, h6,
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
-  color: #ffffff;
+  color: #3D464D;
 }
 
 h1, .h1 {
@@ -6208,10 +6215,10 @@ button.bg-light:focus {
 
 .bg-dark {
   background-color: #3D464D !important;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
-a.bg-dark:hover, a.bg-dark:focus,
+a.bg-dark:hover, a.bg-dark:focus,SSS
 button.bg-dark:hover,
 button.bg-dark:focus {
   background-color: #262c31 !important;
@@ -9523,7 +9530,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .p-30 {
-  padding: 30px;
+  padding: 20px;
 }
 
 .btn.btn-primary {
@@ -9946,6 +9953,24 @@ img {
 }
 
 
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 10px;
+}
+
+.product-price {
+  color: #f00;
+  font-weight: bold;
+}
+
+.product-info {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
 
 
 
