@@ -1,0 +1,25 @@
+signup broken after radio and confused between models [user] & forms [first_name, last_name]
+become a vendor not wroking
+featured object has some problem
+rating printing not working
+fix vender detail
+
+
+category_detail
+product_detail
+
+userprofile > my-store/add-product - Check edit_product.html 
+
+checkout button problem in cart page
+
+reduce quamity when ordered
+
+checkout not working (work for admin)
+
+** box-sizing class to fix different height for product card
+
+
+
+
+
+

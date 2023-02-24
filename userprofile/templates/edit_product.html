@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<h1> {{ title }} </h1>
+
+<forms method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send Message</button>
+</forms>
+{% endblock %}
+
+
+
+
+
+
+
